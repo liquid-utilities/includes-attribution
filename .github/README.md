@@ -1,33 +1,58 @@
-# Includes Translate
-[heading__title]:
-  #includes-translate
-  "&#x2B06; Top of ReadMe File"
+# Includes Attribution
+[heading__top]:
+  #includes-attribution
+  "&#x2B06; Liquid includes that builds Attribution list of links"
 
 
-Liquid utility that includes Google Translate HTML and JS code
+Liquid includes that builds Attribution list of links
 
 
-## [![Byte size of includes-translate][badge__master__includes_translate__source_code]][includes_translate__master__source_code] [![Open Issues][badge__issues__includes_translate]][issues__includes_translate] [![Open Pull Requests][badge__pull_requests__includes_translate]][pull_requests__includes_translate] [![Latest commits][badge__commits__includes_translate__master]][commits__includes_translate__master] [![Includes Translate Demos][badge__demo__includes_translate]][demo__includes_translate]
+## [![Byte size of Includes Attribution][badge__main__includes_attribution__source_code]][includes_attribution__main__source_code] [![Open Issues][badge__issues__includes_attribution]][issues__includes_attribution] [![Open Pull Requests][badge__pull_requests__includes_attribution]][pull_requests__includes_attribution] [![Latest commits][badge__commits__includes_attribution__main]][commits__includes_attribution__main] [![includes-attribution Demos][badge__gh_pages__includes_attribution]][gh_pages__includes_attribution]
 
 
-------
+---
 
 
-- [:arrow_up: Top of ReadMe File][heading__title]
+- [:arrow_up: Top of Document][heading__top]
+
+- [:building_construction: Requirements][heading__requirements]
 
 - [:zap: Quick Start][heading__quick_start]
 
   - [:memo: Edit Your ReadMe File][heading__your_readme_file]
-  - [:factory: Utilize Includes Translate][heading__utilize]
+  - [:fountain: Your Layout File][heading__your_layout_file]
   - [:floppy_disk: Commit and Push][heading__commit_and_push]
+  - [&#x1F9F0; Usage][heading__usage]
 
 - [&#x1F5D2; Notes][heading__notes]
 
+  - [:symbols: FrontMatter API][heading__frontmatter_api]
+  - [:paintbrush: CSS Styling][heading__css_styling]
+
+- [:chart_with_upwards_trend: Contributing][heading__contributing]
+
+  - [:trident: Forking][heading__forking]
+  - [:currency_exchange: Sponsor][heading__sponsor]
+
 - [:card_index: Attribution][heading__attribution]
 
-- [&#x2696; License][heading__license]
+- [:balance_scale: Licensing][heading__license]
 
-------
+
+---
+
+
+
+## Requirements
+[heading__requirements]:
+  #requirements
+  "&#x1F3D7; Prerequisites and/or dependencies that this project needs to function properly"
+
+
+This repository depends upon [Jekyll][jekyll_rb__home] which is supported by [GitHub Pages][github_docs__github_pages__jekyll], further details about setup can be found from [documentation][jekyll_rb__github_pages] published by the Jekyll maintainers regarding GitHub Pages.
+
+
+______
 
 
 ## Quick Start
@@ -36,29 +61,82 @@ Liquid utility that includes Google Translate HTML and JS code
   "&#9889; Perhaps as easy as one, 2.0,..."
 
 
-Change current working directory to the repository that will be utilizing this project, and checkout your `gh-pages` branch if available...
+This repository encourages the use of Git Submodules to track dependencies
+
+
+**Bash Variables**
 
 
 ```Bash
-cd ~/git/hub/__org_name__/__repository__
+_module_name='includes-attribution'
+_module_https_url="https://github.com/liquid-utilities/includes-attribution.git"
+_module_base_dir='_includes/modules'
+_module_path="${_module_base_dir}/${_module_name}"
+```
+
+
+**Bash Submodule Commands**
+
+
+```Bash
+cd "<your-git-project-path>"
 
 
 git checkout gh-pages
+
+mkdir -vp "${_module_base_dir}"
+
+
+git submodule add -b main\
+              --name "${_module_name}"\
+              "${_module_https_url}"\
+              ${_module_path}"
 ```
 
 
-Add this project as a Git submodule...
+---
 
 
+### Your Layout File
+[heading__your_layout_file]:
+  #your-layout-file
+  "&#x26F2; Example post layout modifications"
+
+
+Example post layout modifications...
+
+
+**`_layouts/post.html`**
+
+
+```MarkDown
+---
+layout: default
+license: MIT
+source: https://raw.githubusercontent.com/jekyll/minima/v2.0.0/_layouts/post.html
+---
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    {{ content }}
+    {%- if page.attribution -%}
+      {%- include modules/includes-attribution/includes-attribution.html -%}
+    {%- endif -%}
+  </div>
+
+  {% if site.disqus.shortname %}
+    {% include disqus_comments.html %}
+  {% endif %}
+</article>
 ```
-mkdir -vp _includes/modules
 
 
-git submodule add\
- -b master --name "includes-translate"\
- "https://github.com/liquid-utilities/includes-translate.git"\
- "_includes/modules/includes-translate"
-```
+---
 
 
 ### Your ReadMe File
@@ -84,87 +162,7 @@ Update/upgrade submodules via
 ```
 
 
-### Utilize Includes Translate
-[heading__utilize]:
-  #utilize-includes-translate
-  "&#x1F3ED; How to make use of this submodule within another project"
-
-
-Include the Liquid script within a Layout file...
-
-
-**`_layouts/default.html`**
-
-
-```HTML
-<!--
-  Source: https://raw.githubusercontent.com/jekyll/minima/v2.5.0/_layouts/default.html
-  License: MIT
-  Modified_For: liquid-utilities/includes-translate
--->
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
-  {%- include head.html -%}
-
-  <body>
-    {%- include header.html -%}
-
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {% include modules/includes-translate/includes-translate.html %}
-        {{ content }}
-      </div>
-    </main>
-
-    {%- include footer.html -%}
-
-  </body>
-
-</html>
-```
-
-
-> Note; depending upon theme choice it may be more organized to include code from this project within a `header.html` file, eg. _`_includes/header.html`_
-
-
-Define site defaults...
-
-
-**`_config.yaml`**
-
-
-```YAML
-page:
-  translate_id: translate_selection
-  language: en
-  translate_callback: google_translate_callback
-  auto_translate: false
-```
-
-
-Individual posts may overwrite site defaults...
-
-
-**`_posts/2019-08-16-hello-lifeforms.md`**
-
-
-```YAML
 ---
-layout: post
-title: "Hello Lifeforms"
-date: 2019-08-16 13:58:05 -0700
-categories: posts
-
-language: es
-auto_translate: true
----
-
-
-Ejemplo de contenido de la página que se traducirá.
-```
-
-
-___
 
 
 ### Commit and Push
@@ -174,18 +172,15 @@ ___
 
 
 ```Bash
-git add README.md
 git add .gitmodules
-git add _config.yaml
-git add _includes/modules/includes-translate
-git add _layouts/default.html
+git add "${_module_path}"
 
 
 ## Add any changed files too
 
 
 git commit -F- <<'EOF'
-:heavy_plus_sign: Adds `liquid-utilities/includes-translate#1` submodule
+:heavy_plus_sign: Adds `liquid-utilities/includes-attribution#1` submodule
 
 
 
@@ -196,7 +191,7 @@ git commit -F- <<'EOF'
 
 - `README.md`, updates installation and updating guidance
 
-- `_layouts/modules/includes-translate`, builds list of pages for a named collection
+- `_modules_/includes-attribution`, Liquid includes that builds Attribution list of links
 EOF
 
 
@@ -204,10 +199,73 @@ git push origin gh-pages
 ```
 
 
-**:tada: Excellent :tada:** your site is now ready to begin unitizing code from this repository!
+**:tada: Excellent :tada:** your project is now ready to begin unitizing code from this repository!
 
 
-___
+---
+
+
+### Usage
+[heading__usage]:
+  #usage
+  "&#x1F9F0; How to utilize this repository"
+
+
+**Site `_config.yml` configurations**
+
+
+```YAML
+attribution:
+  title: Attribution
+  class_prefix: attribution
+  auto_font_awesome: true
+```
+
+
+**Post FrontMatter**
+
+
+```yaml
+attribution:
+  links:
+    - text: Google
+      href: https://google.com
+      title: Link to Google web search engine
+
+    - text: GitHub
+      url: https://github.com
+      title: Link to GitHub
+```
+
+
+**HTML results**
+
+
+```html
+<h2 class="attribution__heading"
+    id="heading__attribution"
+    >Attribution
+</h2>
+
+<ul class="attribution__list">
+  <li class="attribution__item">
+    <a href="https://google.com"
+       title="Link to Google web search engine"
+       class="fa-google attribution__link"
+       rel="nofollow noreferrer">Google</a>
+  </li>
+
+  <li class="attribution__item">
+    <a href="https://github.com"
+       title="Link to GitHub"
+       class="fa-github attribution__link"
+       rel="nofollow noreferrer">GitHub</a>
+  </li>
+</ul>
+```
+
+
+______
 
 
 ## Notes
@@ -216,91 +274,163 @@ ___
   "&#x1F5D2; Additional things to keep in mind when developing"
 
 
-`{% include %}` parameters, and `_config.yaml` or `_posts`/`_pages` Frontmatter, may accept the following customizations;
+This repository may not be feature complete and/or fully functional, Pull Requests that add features or fix bugs are certainly welcomed.
 
 
-- `translate_id` string, HTML `id` that Google Translate script should inject `option` and `select` elements into; defaults to `"translate_selection"`
-
-- `language` string, language two letter code that pages are written in; defaults to `"en"`
-
-- `translate_callback` string, name of JavaScript function that Google Translate should call when a language `option` is chosen; defaults to `"google_translate_callback"`
-
-- `auto_translate` boolean, if `true` will add JavaScript function and event listener that will automatically select preferred language if detectable; defaults to `false`
-
-- `disable_translate` boolean, if `true` will disable **all** features of `includes-translate` within page/post or entire site; defaults to `false`
-
-
-------
-
-
-Because this project is a script that may be included, it is possible to translate select pages or posts instead of modifying site template files, eg...
-
-
-**`_posts/2020-03-05-test-automatic-translation.md`**
-
-
-```YAML
 ---
-layout: post
-title: "Test Automatic Translation"
-date: 2020-03-05 12:58:05 -0700
-categories: posts
 
-translate_id: translate_selection
-translate_callback: google_translate_callback
-language: ja
-auto_translate: true
+
+### FrontMatter API
+[heading__frontmatter_api]:
+  #frontmatter-api
+  "&#x1F523; FrontMatter properties for this project"
+
+
+- `attribution` object, site or page configuration namespace
+
+  - `title` string, site or page configuration for list heading title
+  - `class_prefix` string, site or page configuration for HTML classes
+  - `auto_font_awesome` boolean, if `true` then attempt to derive Font Awesome class from link `href` or `url`
+
+  - `links` object list, page configuration
+    - `text` string, displayed within HTML `a` tag
+    - `title` string, displayed on hover of HTML `a` tag
+    - `href` or `url` string, asset that browser will navigate to upon click
+    - `rel` string, default `nofollow noreferrer` 
+    - `class` string, overwrites parsed Font Awesome by manually assign link class
+
+
 ---
-{% include modules/includes-translate/includes-translate.html %}
 
 
-翻訳するページコンテンツの例。
+### CSS Styling
+[heading__css_styling]:
+  #css-styling
+  "&#x1f58c; Tips on how to style listed share links"
+
+
+This project is compatible with Font Awesome, include a `link` to their style sheet for easy icons...
+
+
+```HTML
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 ```
 
 
-___
+This project utilizes BEM (Block Element Modifier) syntax for HTML/CSS class names, the `block` may be modified via `class_prefix` of page FrontMatter and/or site configuration file.
+
+
+______
+
+
+## Contributing
+[heading__contributing]:
+  #contributing
+  "&#x1F4C8; Options for contributing to includes-attribution and liquid-utilities"
+
+
+Options for contributing to includes-attribution and liquid-utilities
+
+
+---
+
+
+### Forking
+[heading__forking]:
+  #forking
+  "&#x1F531; Tips for forking includes-attribution"
+
+
+Start making a [Fork][includes_attribution__fork_it] of this repository to an account that you have write permissions for.
+
+
+- Add remote for fork URL. The URL syntax is _`git@github.com:<NAME>/<REPO>.git`_...
+
+
+```Bash
+cd ~/git/hub/liquid-utilities/includes-attribution
+
+git remote add fork git@github.com:<NAME>/includes-attribution.git
+```
+
+
+- Commit your changes and push to your fork, eg. to fix an issue...
+
+
+```Bash
+cd ~/git/hub/liquid-utilities/includes-attribution
+
+
+git commit -F- <<'EOF'
+:bug: Fixes #42 Issue
+
+
+**Edits**
+
+
+- `<SCRIPT-NAME>` script, fixes some bug reported in issue
+EOF
+
+
+git push fork main
+```
+
+
+> Note, the `-u` option may be used to set `fork` as the default remote, eg. _`git push fork main`_ however, this will also default the `fork` remote for pulling from too! Meaning that pulling updates from `origin` must be done explicitly, eg. _`git pull origin main`_
+
+
+- Then on GitHub submit a Pull Request through the Web-UI, the URL syntax is _`https://github.com/<NAME>/<REPO>/pull/new/<BRANCH>`_
+
+
+> Note; to decrease the chances of your Pull Request needing modifications before being accepted, please check the [dot-github](https://github.com/liquid-utilities/.github) repository for detailed contributing guidelines.
+
+
+---
+
+
+### Sponsor
+  [heading__sponsor]:
+  #sponsor
+  "&#x1F4B1; Methods for financially supporting liquid-utilities that maintains includes-attribution"
+
+
+Thanks for even considering it!
+
+
+With [![sponsor__shields_io__liberapay]][sponsor__link__liberapay] you may sponsor liquid-utilities on a repeating basis.
+
+
+Regardless of if you're able to financially support projects such as includes-attribution that liquid-utilities maintains, please consider sharing projects that are useful with others, because one of the goals of maintaining Open Source repositories is to provide value to the community.
+
+
+______
 
 
 ## Attribution
 [heading__attribution]:
   #attribution
-  "&#x1F4C7; Resources and individuals that where helpful in building this project so far."
+  "&#x1F4C7; Resources that where helpful in building this project so far."
 
 
-- [W3 Schools -- HTML Language Code Reference](https://www.w3schools.com/tags/ref_language_codes.asp)
-
-- [W3 Schools -- How to Google Translate](https://www.w3schools.com/howto/howto_google_translate.asp)
-
-- [StackOverflow -- JavaScript for detecting browser language preference](https://stackoverflow.com/questions/1043339)
-
-- [StackOverflow -- How do I change an HTML selected `option` using JavaScript?](https://stackoverflow.com/questions/10911526)
-
-- [StackOverflow -- How do I change an HTML selected `option` using JavaScript?](https://stackoverflow.com/questions/10911526)
-
-- [StackOverflow -- How can I trigger an `onchange` event manually?](https://stackoverflow.com/questions/2856513)
-
-- [StackOverflow -- Adding Google Translate to a web site](https://stackoverflow.com/questions/12243818)
+- [GitHub -- `github-utilities/make-readme`](https://github.com/github-utilities/make-readme)
 
 
-___
+______
 
 
 ## License
 [heading__license]:
   #license
-  "&#x2696; Legal bits of Open Source software"
-
-
-Legal bits of Open Source software
+  "&#x2696; Legal side of Open Source"
 
 
 ```
-Includes Translate documentation on how things like this could be utilized
-Copyright (C) 2020  S0AndS0
+Liquid includes that builds Attribution list of links
+Copyright (C) 2020 S0AndS0
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
-by the Free Software Foundation; version 3 of the License.
+by the Free Software Foundation, version 3 of the License.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -312,51 +442,80 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
 
 
+For further details review full length version of [AGPL-3.0][branch__current__license] License.
 
-[badge__commits__includes_translate__master]:
-  https://img.shields.io/github/last-commit/liquid-utilities/includes-translate/master.svg
 
-[commits__includes_translate__master]:
-  https://github.com/liquid-utilities/includes-translate/commits/master
+
+[branch__current__license]:
+  /LICENSE
+  "&#x2696; Full length version of AGPL-3.0 License"
+
+
+[badge__commits__includes_attribution__main]:
+  https://img.shields.io/github/last-commit/liquid-utilities/includes-attribution/main.svg
+
+[commits__includes_attribution__main]:
+  https://github.com/liquid-utilities/includes-attribution/commits/main
   "&#x1F4DD; History of changes on this branch"
 
 
-[includes_translate__community]:
-  https://github.com/liquid-utilities/includes-translate/community
+[includes_attribution__community]:
+  https://github.com/liquid-utilities/includes-attribution/community
   "&#x1F331; Dedicated to functioning code"
 
-[includes_translate__gh_pages]:
-  https://github.com/liquid-utilities/includes-translate/tree/gh-pages
+[includes_attribution__gh_pages]:
+  https://github.com/liquid-utilities/includes-attribution/tree/
   "Source code examples hosted thanks to GitHub Pages!"
 
+[badge__gh_pages__includes_attribution]:
+  https://img.shields.io/website/https/liquid-utilities.github.io/includes-attribution/index.html.svg?down_color=darkorange&down_message=Offline&label=Demo&logo=Demo%20Site&up_color=success&up_message=Online
 
-[badge__demo__includes_translate]:
-  https://img.shields.io/website/https/liquid-utilities.github.io/includes-translate/index.html.svg?down_color=darkorange&down_message=Offline&label=Demo&logo=Demo%20Site&up_color=success&up_message=Online
-
-[demo__includes_translate]:
-  https://liquid-utilities.github.io/includes-translate/index.html
+[gh_pages__includes_attribution]:
+  https://liquid-utilities.github.io/includes-attribution/index.html
   "&#x1F52C; Check the example collection tests"
 
-
-[badge__issues__includes_translate]:
-  https://img.shields.io/github/issues/liquid-utilities/includes-translate.svg
-
-[issues__includes_translate]:
-  https://github.com/liquid-utilities/includes-translate/issues
+[issues__includes_attribution]:
+  https://github.com/liquid-utilities/includes-attribution/issues
   "&#x2622; Search for and _bump_ existing issues or open new issues for project maintainer to address."
 
+[includes_attribution__fork_it]:
+  https://github.com/liquid-utilities/includes-attribution/
+  "&#x1F531; Fork it!"
 
-[badge__pull_requests__includes_translate]:
-  https://img.shields.io/github/issues-pr/liquid-utilities/includes-translate.svg
-
-[pull_requests__includes_translate]:
-  https://github.com/liquid-utilities/includes-translate/pulls
+[pull_requests__includes_attribution]:
+  https://github.com/liquid-utilities/includes-attribution/pulls
   "&#x1F3D7; Pull Request friendly, though please check the Community guidelines"
 
-
-[badge__master__includes_translate__source_code]:
-  https://img.shields.io/github/repo-size/liquid-utilities/includes-translate
-
-[includes_translate__master__source_code]:
-  https://github.com/liquid-utilities/includes-translate/
+[includes_attribution__main__source_code]:
+  https://github.com/liquid-utilities/includes-attribution/
   "&#x2328; Project source!"
+
+[badge__issues__includes_attribution]:
+  https://img.shields.io/github/issues/liquid-utilities/includes-attribution.svg
+
+[badge__pull_requests__includes_attribution]:
+  https://img.shields.io/github/issues-pr/liquid-utilities/includes-attribution.svg
+
+[badge__main__includes_attribution__source_code]:
+  https://img.shields.io/github/repo-size/liquid-utilities/includes-attribution
+
+
+[jekyll_rb__home]:
+  https://jekyllrb.com/
+  "Jekyll home page"
+
+[jekyll_rb__github_pages]:
+  https://jekyllrb.com/docs/github-pages/
+  "Jekyll documentation for GitHub Pages setup"
+
+[github_docs__github_pages__jekyll]:
+  https://docs.github.com/en/github/working-with-github-pages/setting-up-a-github-pages-site-with-jekyll
+  "GitHub Pages documentation on Jekyll setup"
+
+[sponsor__shields_io__liberapay]:
+  https://img.shields.io/static/v1?logo=liberapay&label=Sponsor&message=liquid-utilities
+
+[sponsor__link__liberapay]:
+  https://liberapay.com/liquid-utilities
+  "&#x1F4B1; Sponsor developments and projects that liquid-utilities maintains via Liberapay"
+

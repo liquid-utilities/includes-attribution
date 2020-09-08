@@ -1,0 +1,84 @@
+{% capture workspace__attribution %}
+{% comment %}
+---
+version: 0.0.1
+license: AGPL-3.0
+author: S0AndS0
+---
+
+
+## Example FrontMatter
+---
+attribution:
+  title: Attribution
+  class_prefix: attribution
+  auto_font_awesome: true
+
+  links:
+    - text: Google
+      href: https://google.com
+      title: Link to Google web search engine
+      rel: nofollow noreferrer
+
+    - text: GitHub
+      url: https://github.com
+      title: Link to GitHub
+---
+{% endcomment %}
+{% if page.attribution %}
+  {% assign attribution__class_prefix = page.attribution.class_prefix | default: site.attribution.class_prefix | default: 'attribution' %}
+  {% assign attribution__auto_font_awesome = page.attribution.auto_font_awesome | default: site.attribution.auto_font_awesome | default: nil %}
+
+  {% assign attribution__heading_title = page.attribution.title | default: site.attribution.title | default: nil %}
+  {% if attribution__heading_title %}
+    <h2 class="{{ attribution__class_prefix }}__heading"
+        id="heading__{{ attribution__class_prefix }}"
+        >{{ attribution__heading_title }}
+    </h2>
+  {% endif %}
+
+  <ul class="{{ attribution__class_prefix }}__list">
+    {% for attribution_link in page.attribution.links %}
+      {% assign attribution__link_href = attribution_link.href | attribution_link.url | default: nil %}
+      {% unless attribution__link_href %}{% continue %}{% endunless %}
+
+      {% assign attribution__link_text = attribution_link.text | default: nil %}
+      {% assign attribution__link_title = attribution_link.title | default: nil %}
+      {% assign attribution__link_rel = attribution_link.rel | default: 'nofollow noreferrer' %}
+
+      {% if attribution_link.class %}
+        {% capture attribution__link_class %}{{ attribution_link.class }} {{ attribution__class_prefix }}__link{% endcapture %}
+      {% elsif attribution__auto_font_awesome %}
+        {% assign url_domain = attribution__link_href | split: '://' | last | split: '.' | first %}
+        {% if url_domain %}
+          {% capture attribution__link_class %}fa-{{ url_domain }} {{ attribution__class_prefix }}__link{% endcapture %}
+        {% endif %}
+        {% assign url_domain = nil %}
+      {% else %}
+        {% assign attribution__link_class = '{{ attribution__class_prefix }}__link' %}
+      {% endif %}
+
+      {% if attribution__link_href %}
+        <li class="{{ attribution__class_prefix }}__item">
+          <a href="{{ attribution__link_href }}"
+             {% if attribution__link_title %} title="{{ attribution__link_title }}"{% endif %}
+             class="{{ attribution__link_class }}"
+             rel="{{ attribution__link_rel }}">
+            {% if attribution__link_text %}{{ attribution__link_text }}{% endif %}
+          </a>
+        </li>
+      {% endif %}
+
+      {% assign attribution__link_href = nil %}
+      {% assign attribution__link_text = nil %}
+      {% assign attribution__link_title = nil %}
+      {% assign attribution__link_rel = nil %}
+      {% assign attribution__link_class = nil %}
+    {% endfor %}
+  </ul>
+
+  {% assign attribution__class_prefix = nil %}
+  {% assign attribution__auto_font_awesome = nil %}
+{% endif %}
+{% endcapture %}{%- if workspace__attribution -%}{{ workspace__attribution | strip_newlines | strip }}{% assign workspace__attribution = nil %}{%- endif -%}
+

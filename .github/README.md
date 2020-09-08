@@ -251,14 +251,14 @@ attribution:
   <li class="attribution__item">
     <a href="https://google.com"
        title="Link to Google web search engine"
-       class="fa-google attribution__link"
+       class="fa fa-google attribution__link"
        rel="nofollow noreferrer">Google</a>
   </li>
 
   <li class="attribution__item">
     <a href="https://github.com"
        title="Link to GitHub"
-       class="fa-github attribution__link"
+       class="fa fa-github attribution__link"
        rel="nofollow noreferrer">GitHub</a>
   </li>
 </ul>

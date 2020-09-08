@@ -51,7 +51,7 @@ attribution:
       {% elsif attribution__auto_font_awesome %}
         {% assign url_domain = attribution__link_href | split: '://' | last | split: '.' | first %}
         {% if url_domain %}
-          {% capture attribution__link_class %}fa-{{ url_domain }} {{ attribution__class_prefix }}__link{% endcapture %}
+          {% capture attribution__link_class %}fa fa-{{ url_domain }} {{ attribution__class_prefix }}__link{% endcapture %}
         {% endif %}
         {% assign url_domain = nil %}
       {% else %}

@@ -48,7 +48,7 @@ attribution:
   <li class="attribution__item">
     <a href="https://github.com/liquid-utilities/includes-attribution"
        title="Source code of this project"
-       class="fa-github attribution__link"
+       class="fa fa-github attribution__link"
        rel="nofollow noreferrer"
        >GitHub -- Liquid Utilities -- Includes Attribution
     </a>
@@ -57,7 +57,7 @@ attribution:
   <li class="attribution__item">
     <a href="https://github.com/liquid-utilities/includes-translate"
        title="Source code for Liquid configured Google translate"
-       class="fa-github attribution__link"
+       class="fa fa-github attribution__link"
        rel="nofollow noreferrer"
        >GitHub -- Liquid Utilities -- Includes Translate
     </a>

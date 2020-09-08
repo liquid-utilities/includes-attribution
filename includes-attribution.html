@@ -39,7 +39,7 @@ attribution:
 
   <ul class="{{ attribution__class_prefix }}__list">
     {% for attribution_link in page.attribution.links %}
-      {% assign attribution__link_href = attribution_link.href | attribution_link.url | default: nil %}
+      {% assign attribution__link_href = attribution_link.href | default: attribution_link.url | default: nil %}
       {% unless attribution__link_href %}{% continue %}{% endunless %}
 
       {% assign attribution__link_text = attribution_link.text | default: nil %}

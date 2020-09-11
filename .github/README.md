@@ -90,7 +90,7 @@ mkdir -vp "${_module_base_dir}"
 git submodule add -b main\
               --name "${_module_name}"\
               "${_module_https_url}"\
-              ${_module_path}"
+              "${_module_path}"
 ```
 
 

@@ -1,14 +1,17 @@
 {% capture workspace__attribution %}
 {% comment %}
 ---
+vim: filetype=liquid
 version: 0.0.1
-license: AGPL-3.0
 author: S0AndS0
+license: AGPL-3.0
 ---
 
 
 ## Example FrontMatter
----
+
+
+```yaml
 attribution:
   title: Attribution
   class_prefix: attribution
@@ -23,7 +26,7 @@ attribution:
     - text: GitHub
       url: https://github.com
       title: Link to GitHub
----
+```
 {% endcomment %}
 {% if page.attribution %}
   {% assign attribution__class_prefix = page.attribution.class_prefix | default: site.attribution.class_prefix | default: 'attribution' %}
@@ -81,4 +84,3 @@ attribution:
   {% assign attribution__auto_font_awesome = nil %}
 {% endif %}
 {% endcapture %}{%- if workspace__attribution -%}{{ workspace__attribution | strip_newlines | strip }}{% assign workspace__attribution = nil %}{%- endif -%}
-
